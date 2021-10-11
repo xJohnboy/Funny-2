@@ -1,6 +1,5 @@
 package com.example.funny_2
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -15,31 +14,33 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewPagerAdapter: ViewPagerAdapter
 
-    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        title = "Store"
 
         val navView: BottomNavigationView = binding.navView
         navView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_store -> {
+                    title = "Store"
                     viewPager.setCurrentItem(0, false)
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_map -> {
+                    title = "Map"
                     viewPager.setCurrentItem(1, false)
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_account -> {
+                    title = "Account"
                     viewPager.setCurrentItem(2, false)
                     return@setOnItemSelectedListener true
                 }
                 else -> false
             }
         }
-
         viewPagerAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
         initFragment()
         viewPager.adapter = viewPagerAdapter

@@ -7,11 +7,9 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.funny_2.R
@@ -21,7 +19,6 @@ import kotlinx.android.synthetic.main.fragment_store.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 import kotlin.collections.ArrayList
 
 class StoreFragment : Fragment() {
@@ -60,12 +57,6 @@ class StoreFragment : Fragment() {
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
                 if (result!!.resultCode == Activity.RESULT_OK) {
                     category = result.data!!.extras!!.getString("category").toString()
-//                    (activity as AppCompatActivity).supportActionBar?.title =
-//                        category.replaceFirstChar {
-//                            if (it.isLowerCase()) it.titlecase(
-//                                Locale.getDefault()
-//                            ) else it.toString()
-//                        }
                     adapter.clear()
                     if (category == "All item") {
                         swipeToRefreshStore?.setOnRefreshListener {

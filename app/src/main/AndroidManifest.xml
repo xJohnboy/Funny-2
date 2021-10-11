@@ -33,10 +33,14 @@
 
         <activity
             android:name=".ui.map.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps">
+
+        </activity>
         <activity
             android:name=".ui.store.CategoryActivity"
-            android:label="Are you looking for ?"></activity>
+            android:label="Are you looking for ?">
+
+        </activity>
         <activity android:name=".ui.store.ProductDetailActivity" />
         <activity
             android:name=".MainActivity"
