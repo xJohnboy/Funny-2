@@ -60,12 +60,12 @@ class StoreFragment : Fragment() {
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
                 if (result!!.resultCode == Activity.RESULT_OK) {
                     category = result.data!!.extras!!.getString("category").toString()
-                    (activity as AppCompatActivity).supportActionBar?.title =
-                        category.replaceFirstChar {
-                            if (it.isLowerCase()) it.titlecase(
-                                Locale.getDefault()
-                            ) else it.toString()
-                        }
+//                    (activity as AppCompatActivity).supportActionBar?.title =
+//                        category.replaceFirstChar {
+//                            if (it.isLowerCase()) it.titlecase(
+//                                Locale.getDefault()
+//                            ) else it.toString()
+//                        }
                     adapter.clear()
                     if (category == "All item") {
                         swipeToRefreshStore?.setOnRefreshListener {
