@@ -12,11 +12,12 @@ import kotlin.collections.ArrayList
 class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.VHolder>() {
     private val data = ArrayList<String>()
     var onViewClick: ((String) -> Unit)? = null
-    var categorySelected = "x"
+    var categorySelected = CategoryActivity.ALL_ITEMS
 
     fun addAll(append: ArrayList<String>) {
+        data.clear()
         data.addAll(append)
-        data.add(4, "All item")
+        data.add(4, CategoryActivity.ALL_ITEMS)
         notifyDataSetChanged()
     }
 
@@ -40,6 +41,7 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.VHolder>() {
                     Locale.getDefault()
                 ) else it.toString()
             }
+
             matCardCategory.isChecked = data == categorySelected
         }
 
