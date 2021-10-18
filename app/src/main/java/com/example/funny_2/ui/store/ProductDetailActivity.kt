@@ -1,6 +1,5 @@
 package com.example.funny_2.ui.store
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +39,7 @@ class ProductDetailActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
+        title = storeData?.title
         loadData()
     }
 

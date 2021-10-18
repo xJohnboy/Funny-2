@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.recycler_store.view.*
 class StoreAdapter : RecyclerView.Adapter<StoreAdapter.VHolder>() {
     private val data = ArrayList<StoreData>()
     var onViewClick: ((StoreData) -> Unit)? = null
+
     fun addProduct(append: ArrayList<StoreData>) {
         data.addAll(append)
         notifyDataSetChanged()

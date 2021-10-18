@@ -17,10 +17,6 @@ class MapAdapter : RecyclerView.Adapter<MapAdapter.VHolder>() {
         notifyDataSetChanged()
     }
 
-    fun addListMap(append: Entities) {
-        data.add(append)
-    }
-
     fun clear() {
         data.clear()
         notifyDataSetChanged()

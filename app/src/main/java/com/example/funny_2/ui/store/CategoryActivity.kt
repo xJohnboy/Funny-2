@@ -5,19 +5,15 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.funny_2.R
 import com.example.funny_2.data.api.ApiStore
-import com.example.funny_2.ui.store.interfaces.OnCategoryActivityResult
+import com.example.funny_2.ui.store.`interface`.OnCategoryActivityResult
 import kotlinx.android.synthetic.main.activity_category.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 import kotlin.collections.ArrayList
 
 class CategoryActivity : AppCompatActivity() {
