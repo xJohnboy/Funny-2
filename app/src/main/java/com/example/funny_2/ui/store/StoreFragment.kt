@@ -5,22 +5,26 @@ import android.util.Log
 import android.view.*
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.funny_2.R
 import com.example.funny_2.data.StoreData
 import com.example.funny_2.data.api.ApiStore
 import com.example.funny_2.ui.store.`interface`.OnCategoryActivityResult
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_store.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 import kotlin.collections.ArrayList
 
 class StoreFragment : Fragment() {
     private val apiService = ApiStore()
     private val adapter = StoreAdapter()
-    private var selectedCategory = CategoryActivity.ALL_ITEMS
+    var selectedCategory = CategoryActivity.ALL_ITEMS
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,11 +82,17 @@ class StoreFragment : Fragment() {
     }
 
     private fun loadData() {
-        swipeToRefreshStore.isRefreshing = true
+        swipeToRefreshStore?.isRefreshing = true
         if (selectedCategory == CategoryActivity.ALL_ITEMS) {
             fetchStore()
+            (activity as AppCompatActivity).title = "Store"
         } else {
             fetchStoreByCategory()
+            (activity as AppCompatActivity).title = selectedCategory.replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(
+                    Locale.getDefault()
+                ) else it.toString()
+            }
         }
     }
 

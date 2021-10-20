@@ -8,6 +8,7 @@ import com.example.funny_2.ui.account.AccountFragment
 import com.example.funny_2.ui.map.MapFragment
 import com.example.funny_2.ui.store.StoreFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_store.*
 import kotlinx.android.synthetic.main.recycler_store.view.*
 
 class MainActivity : AppCompatActivity() {
@@ -24,18 +25,18 @@ class MainActivity : AppCompatActivity() {
         navView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_store -> {
-                    title = "Store"
-                    viewPager.setCurrentItem(0, false)
+                    title = ""
+                    viewPager?.setCurrentItem(0, false)
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_map -> {
                     title = "Map"
-                    viewPager.setCurrentItem(1, false)
+                    viewPager?.setCurrentItem(1, false)
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_account -> {
                     title = "Account"
-                    viewPager.setCurrentItem(2, false)
+                    viewPager?.setCurrentItem(2, false)
                     return@setOnItemSelectedListener true
                 }
                 else -> false
