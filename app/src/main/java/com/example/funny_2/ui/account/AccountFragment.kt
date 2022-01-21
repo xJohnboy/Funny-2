@@ -3,7 +3,6 @@ package com.example.funny_2.ui.account
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.funny_2.R
 

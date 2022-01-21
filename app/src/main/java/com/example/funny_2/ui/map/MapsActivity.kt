@@ -36,7 +36,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var latID: Double = 0.0
     private var lonID: Double = 0.0
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -75,5 +74,4 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         onBackPressed()
         return super.onSupportNavigateUp()
     }
-
 }

@@ -26,7 +26,7 @@ data class Entities (
     val amphoe_th : String,
     val province_th : String,
     val zipcode : String,
-    val distance : Int,
+    val distance : Double,
     val branch_type : Int,
     val latitude : Double,
     val longitude : Double

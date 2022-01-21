@@ -14,18 +14,18 @@ import kotlinx.android.synthetic.main.recycler_store.view.*
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        const val PAGE_STORE_TILE = "Store"
+        const val PAGE_STORE_TITLE = "Store"
     }
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewPagerAdapter: ViewPagerAdapter
-    private var currentFragmentTitle = PAGE_STORE_TILE
+    private val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
+    private var currentFragmentTitle = PAGE_STORE_TITLE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        title = PAGE_STORE_TILE
+        title = PAGE_STORE_TITLE
 
         val navView: BottomNavigationView = binding.navView
         navView.setOnItemSelectedListener { item ->
@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-        viewPagerAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
         initFragment()
         viewPager.adapter = viewPagerAdapter
         viewPager.isUserInputEnabled = false

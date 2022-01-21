@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.*
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.funny_2.MainActivity
@@ -13,7 +12,6 @@ import com.example.funny_2.R
 import com.example.funny_2.data.StoreData
 import com.example.funny_2.data.api.ApiStore
 import com.example.funny_2.ui.store.`interface`.OnCategoryActivityResult
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.fragment_store.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -134,7 +132,7 @@ class StoreFragment : Fragment() {
 
     private fun updateMainActivityStoreFragmentTitleIfNeeded() {
         val mainActivity = activity as? MainActivity
-        val titleToDisplay = if (CategoryActivity.ALL_ITEMS == selectedCategory) MainActivity.PAGE_STORE_TILE else selectedCategory
+        val titleToDisplay = if (CategoryActivity.ALL_ITEMS == selectedCategory) MainActivity.PAGE_STORE_TITLE else selectedCategory
         mainActivity?.updateStoreTitle(titleToDisplay.replaceFirstChar(Char::titlecase))
     }
 

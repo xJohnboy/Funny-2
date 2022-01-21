@@ -1,10 +1,9 @@
 package com.example.funny_2.ui.map
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_map.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 import kotlin.collections.ArrayList
 
 class MapFragment : Fragment() {
@@ -25,8 +25,17 @@ class MapFragment : Fragment() {
     private val adapter = MapAdapter()
     private var pageLimit = 1
     private var page = 1
-    private var hashMap = hashMapOf<String, String>()
+    private var hashMapWorkData = hashMapOf<String, String>()
     private var isLoading = false
+
+    companion object {
+        private const val FILTER_TYPE = "filter_type"
+        private const val NUMBER_ONE = "1"
+        private const val PAGE = "page"
+        private const val q = "q"
+        private const val LATITUDE_NUMBER = 13.76172
+        private const val LONGITUDE_NUMBER = 100.53709
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +48,49 @@ class MapFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.bottom_search, menu)
+        inflater.inflate(R.menu.bottom_near_location, menu)
+        val item = menu.findItem(R.id.bottom_search)
+        val searchView = item?.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) {
+                    if (newText.isNotEmpty()) {
+                        adapter.clear()
+                        hashMapWorkData.clear()
+                        scrollUpMap?.visibility = View.GONE
+                        val searchString = newText.lowercase(Locale.getDefault())
+                        hashMapWorkData[FILTER_TYPE] = NUMBER_ONE
+                        hashMapWorkData[q] = searchString
+                        fetchMap()
+                    } else {
+                        adapter.clear()
+                        page = 1
+                        loadData()
+                    }
+                }
+                return true
+            }
+        })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.bottom_near_location -> {
+                startActivity(
+                    NearbyMapActivity.create(
+                        requireActivity(),
+                        LATITUDE_NUMBER,
+                        LONGITUDE_NUMBER
+                    )
+                )
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,7 +125,14 @@ class MapFragment : Fragment() {
         }
 
         adapter.onViewClick = { data ->
-            startActivity(MapsActivity.create(requireContext(),data.store_name,data.latitude,data.longitude))
+            startActivity(
+                MapsActivity.create(
+                    requireContext(),
+                    data.store_name,
+                    data.latitude,
+                    data.longitude
+                )
+            )
         }
 
         swipeToRefreshMap?.setOnRefreshListener {
@@ -90,15 +149,15 @@ class MapFragment : Fragment() {
         } else {
             progressBarMap?.visibility = View.VISIBLE
         }
-        hashMap["filter_type"] = "1"
-        hashMap["page"] = "$page"
+        hashMapWorkData.clear()
+        hashMapWorkData[FILTER_TYPE] = NUMBER_ONE
+        hashMapWorkData[PAGE] = "$page"
         isLoading = true
-
         fetchMap()
     }
 
     private fun fetchMap() {
-        val call = apiService.getMap(hashMap)
+        val call = apiService.getMap(hashMapWorkData)
         call.enqueue(object : Callback<MapData> {
             override fun onResponse(call: Call<MapData>, response: Response<MapData>) {
                 if (response.isSuccessful) {

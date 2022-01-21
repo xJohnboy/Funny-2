@@ -36,11 +36,7 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.VHolder>() {
     inner class VHolder(v: View) : RecyclerView.ViewHolder(v) {
         val matCardCategory = v.matCardCategory
         fun bindItem(data: String) {
-            itemView.textCategory.text = data.replaceFirstChar {
-                if (it.isLowerCase()) it.titlecase(
-                    Locale.getDefault()
-                ) else it.toString()
-            }
+            itemView.textCategory.text = data.replaceFirstChar(Char::titlecase)
 
             matCardCategory.isChecked = data == categorySelected
         }
