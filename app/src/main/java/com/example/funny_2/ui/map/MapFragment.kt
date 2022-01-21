@@ -27,14 +27,15 @@ class MapFragment : Fragment() {
     private var page = 1
     private var hashMapWorkData = hashMapOf<String, String>()
     private var isLoading = false
+    private var isSearching = false
 
     companion object {
-        private const val FILTER_TYPE = "filter_type"
-        private const val NUMBER_ONE = "1"
-        private const val PAGE = "page"
-        private const val q = "q"
-        private const val LATITUDE_NUMBER = 13.76172
-        private const val LONGITUDE_NUMBER = 100.53709
+        private const val KEY_FILTER_TYPE = "filter_type"
+        private const val VALUE_FILTER_TYPE = "1"
+        private const val KEY_PAGE = "page"
+        private const val KEY_Q = "q"
+        private const val VALUE_LATITUDE = 13.76172
+        private const val VALUE_LONGITUDE = 100.53709
     }
 
     override fun onCreateView(
@@ -53,8 +54,8 @@ class MapFragment : Fragment() {
         val searchView = item?.actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                searchView.clearFocus()
-                return true
+                searchView.clearAnimation()
+                return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
@@ -63,11 +64,13 @@ class MapFragment : Fragment() {
                         adapter.clear()
                         hashMapWorkData.clear()
                         scrollUpMap?.visibility = View.GONE
+                        isSearching = true
                         val searchString = newText.lowercase(Locale.getDefault())
-                        hashMapWorkData[FILTER_TYPE] = NUMBER_ONE
-                        hashMapWorkData[q] = searchString
+                        hashMapWorkData[KEY_FILTER_TYPE] = VALUE_FILTER_TYPE
+                        hashMapWorkData[KEY_Q] = searchString
                         fetchMap()
                     } else {
+                        isSearching = false
                         adapter.clear()
                         page = 1
                         loadData()
@@ -84,8 +87,8 @@ class MapFragment : Fragment() {
                 startActivity(
                     NearbyMapActivity.create(
                         requireActivity(),
-                        LATITUDE_NUMBER,
-                        LONGITUDE_NUMBER
+                        VALUE_LATITUDE,
+                        VALUE_LONGITUDE
                     )
                 )
             }
@@ -149,11 +152,16 @@ class MapFragment : Fragment() {
         } else {
             progressBarMap?.visibility = View.VISIBLE
         }
-        hashMapWorkData.clear()
-        hashMapWorkData[FILTER_TYPE] = NUMBER_ONE
-        hashMapWorkData[PAGE] = "$page"
-        isLoading = true
-        fetchMap()
+
+        if (!isSearching) {
+            hashMapWorkData.clear()
+            hashMapWorkData[KEY_FILTER_TYPE] = VALUE_FILTER_TYPE
+            hashMapWorkData[KEY_PAGE] = "$page"
+            isLoading = true
+            fetchMap()
+        } else {
+            fetchMap()
+        }
     }
 
     private fun fetchMap() {

@@ -25,8 +25,8 @@ class NearbyMapActivity : AppCompatActivity() {
         private const val NEARBY_LOCATION = "Nearby Location."
         private const val EXTRA_LAT_ID = "EXTRA_LAT_ID"
         private const val EXTRA_LON_ID = "EXTRA_LON_ID"
-        private const val LATITUDE = "latitude"
-        private const val LONGITUDE = "longitude"
+        private const val KEY_LATITUDE = "latitude"
+        private const val KEY_LONGITUDE = "longitude"
 
         fun create(context: Context, latitude: Double, longitude: Double): Intent {
             return Intent(context, NearbyMapActivity::class.java).apply {
@@ -79,10 +79,9 @@ class NearbyMapActivity : AppCompatActivity() {
     }
 
     private fun loadData() {
-        adapter.clear()
         swipeToRefreshMap?.isRefreshing = true
-        hashMapDouble[LATITUDE] = latitude
-        hashMapDouble[LONGITUDE] = longitude
+        hashMapDouble[KEY_LATITUDE] = latitude
+        hashMapDouble[KEY_LONGITUDE] = longitude
         fetchMap()
     }
 
@@ -104,6 +103,7 @@ class NearbyMapActivity : AppCompatActivity() {
     }
 
     private fun handleMapData(item: ArrayList<Entities>) {
+        adapter.clear()
         adapter.addMap(item)
     }
 
