@@ -22,7 +22,7 @@ class NearbyMapActivity : AppCompatActivity() {
     private var hashMapDouble = hashMapOf<String, Double>()
 
     companion object {
-        private const val NEARBY_LOCATION = "Nearby Location."
+        private const val NEARBY_LOCATION = "Nearby Location ."
         private const val EXTRA_LAT_ID = "EXTRA_LAT_ID"
         private const val EXTRA_LON_ID = "EXTRA_LON_ID"
         private const val KEY_LATITUDE = "latitude"

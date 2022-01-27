@@ -46,41 +46,6 @@ class MapFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.bottom_search, menu)
-        inflater.inflate(R.menu.bottom_near_location, menu)
-        val item = menu.findItem(R.id.bottom_search)
-        val searchView = item?.actionView as SearchView
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                searchView.clearAnimation()
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText != null) {
-                    if (newText.isNotEmpty()) {
-                        adapter.clear()
-                        hashMapWorkData.clear()
-                        scrollUpMap?.visibility = View.GONE
-                        isSearching = true
-                        val searchString = newText.lowercase(Locale.getDefault())
-                        hashMapWorkData[KEY_FILTER_TYPE] = VALUE_FILTER_TYPE
-                        hashMapWorkData[KEY_Q] = searchString
-                        fetchMap()
-                    } else {
-                        isSearching = false
-                        adapter.clear()
-                        page = 1
-                        loadData()
-                    }
-                }
-                return true
-            }
-        })
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.bottom_near_location -> {
@@ -94,6 +59,42 @@ class MapFragment : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.bottom_search, menu)
+        inflater.inflate(R.menu.bottom_near_location, menu)
+        val item = menu.findItem(R.id.bottom_search)
+        val searchView = item?.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) {
+                    if (newText.isNotEmpty()) {
+                        adapter.clear()
+                        hashMapWorkData.clear()
+                        scrollUpMap?.visibility = View.GONE
+                        isSearching = true
+                        val searchString = newText.lowercase(Locale.getDefault())
+                        hashMapWorkData[KEY_FILTER_TYPE] = VALUE_FILTER_TYPE
+                        hashMapWorkData[KEY_Q] = searchString
+                        fetchMap()
+                        println(page)
+                    } else {
+                        isSearching = false
+                        adapter.clear()
+                        page = 1
+                        loadData()
+                    }
+                }
+                return true
+            }
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -130,7 +131,7 @@ class MapFragment : Fragment() {
         adapter.onViewClick = { data ->
             startActivity(
                 MapsActivity.create(
-                    requireContext(),
+                    requireActivity(),
                     data.store_name,
                     data.latitude,
                     data.longitude
@@ -171,7 +172,9 @@ class MapFragment : Fragment() {
                 if (response.isSuccessful) {
                     response.body()?.entities?.let { handleMapData(it) }
                     response.body()?.page_information?.let { handlePageInformation(it) }
-                    page++
+                    if (!isSearching) {
+                        page++
+                    }
                     isLoading = false
                     progressBarMap?.visibility = View.GONE
                 }

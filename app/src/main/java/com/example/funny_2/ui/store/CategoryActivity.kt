@@ -9,6 +9,7 @@ import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.funny_2.R
 import com.example.funny_2.data.api.ApiStore
+import com.example.funny_2.ui.map.NearbyMapActivity
 import com.example.funny_2.ui.store.`interface`.OnCategoryActivityResult
 import kotlinx.android.synthetic.main.activity_category.*
 import retrofit2.Call
@@ -23,6 +24,7 @@ class CategoryActivity : AppCompatActivity() {
 
     companion object {
         private const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
+        private const val ARE_YOU_LOOKING_FOR = "Are you looking for ?"
 
         const val ALL_ITEMS = "All item"
 
@@ -62,6 +64,7 @@ class CategoryActivity : AppCompatActivity() {
 
         swipeRefreshLayout.setOnRefreshListener { loadData() }
 
+        title = ARE_YOU_LOOKING_FOR
         loadData()
     }
 

@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Johnboy/AndroidStudioProjects/Kotlin Practice/Funny-2/app/src/main/res/layout/activity_category.xml" value="0.22282608695652173" />
+        <entry key="..\:/Users/Johnboy/AndroidStudioProjects/Kotlin Practice/Funny-2/app/src/main/res/layout/activity_main.xml" value="0.17708333333333334" />
+        <entry key="..\:/Users/Johnboy/AndroidStudioProjects/Kotlin Practice/Funny-2/app/src/main/res/layout/activity_product_detail.xml" value="0.22282608695652173" />
+        <entry key="..\:/Users/Johnboy/AndroidStudioProjects/Kotlin Practice/Funny-2/app/src/main/res/layout/recycler_category.xml" value="0.22282608695652173" />
         <entry key="app/src/main/res/layout/activity_category.xml" value="0.5520833333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.5677083333333334" />
         <entry key="app/src/main/res/layout/fragment_store.xml" value="0.34010416666666665" />

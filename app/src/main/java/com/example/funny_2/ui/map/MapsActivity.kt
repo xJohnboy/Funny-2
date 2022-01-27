@@ -38,13 +38,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMapsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         locationID = intent.getStringExtra(EXTRA_LOCATION_ID).toString()
         latID = intent.getDoubleExtra(EXTRA_LAT_ID, 0.0)
         lonID = intent.getDoubleExtra(EXTRA_LON_ID, 0.0)
+
+        setContentView(binding.root)
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
