@@ -34,15 +34,11 @@ interface ApiStore {
                 .create(ApiStore::class.java)
         }
     }
-
 }
 
 interface ApiMap {
     @GET("mobile")
-    fun getMap(@QueryMap map: HashMap<String, String>): Call<MapData>
-
-    @GET("mobile")
-    fun getNearbyMap(@QueryMap map: HashMap<String, Double>): Call<MapData>
+    fun getMap(@QueryMap map: HashMap<String, Any?>): Call<MapData>
 
     companion object {
         operator fun invoke(): ApiMap {

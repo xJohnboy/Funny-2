@@ -9,7 +9,6 @@ import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.funny_2.R
 import com.example.funny_2.data.api.ApiStore
-import com.example.funny_2.ui.map.NearbyMapActivity
 import com.example.funny_2.ui.store.`interface`.OnCategoryActivityResult
 import kotlinx.android.synthetic.main.activity_category.*
 import retrofit2.Call

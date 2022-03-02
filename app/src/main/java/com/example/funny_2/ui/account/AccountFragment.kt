@@ -23,7 +23,7 @@ class AccountFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.bottom_setting -> {
-                Toast.makeText(activity,R.string.setting,Toast.LENGTH_SHORT).show()
+//                Toast.makeText(activity,R.string.setting,Toast.LENGTH_SHORT).show()
             }
         }
         return super.onOptionsItemSelected(item)
