@@ -5,9 +5,7 @@ import com.example.funny_2.data.StoreData
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.QueryMap
+import retrofit2.http.*
 
 const val STORE_URL = "https://fakestoreapi.com/"
 const val MAP_URL = "http://dev.brtmobile.com/api/v1/branches/"
@@ -38,7 +36,13 @@ interface ApiStore {
 
 interface ApiMap {
     @GET("mobile")
-    fun getMap(@QueryMap map: HashMap<String, Any?>): Call<MapData>
+    fun getMap(
+        @Query("filter_type") filterType: String,
+        @Query("page") page: Int,
+        @Query("latitude") latitude: Double?,
+        @Query("longitude") longitude: Double?,
+        @Query("q") q: String?
+    ): Call<MapData>
 
     companion object {
         operator fun invoke(): ApiMap {

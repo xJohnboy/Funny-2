@@ -99,8 +99,8 @@ class StoreFragment : Fragment() {
                 if (response.isSuccessful) {
                     response.body()?.let { handleStoreData(it) }
                 }
-                swipeToRefreshStore?.isRefreshing = false
 
+                swipeToRefreshStore?.isRefreshing = false
             }
 
             override fun onFailure(call: Call<ArrayList<StoreData>>, t: Throwable) {
