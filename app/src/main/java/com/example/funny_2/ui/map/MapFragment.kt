@@ -225,6 +225,7 @@ class MapFragment : Fragment(), OnLocationUpdatedListener {
             override fun onFailure(call: Call<MapData>, t: Throwable) {
                 swipeToRefreshMap?.isRefreshing = false
                 progressBarMap?.visibility = View.GONE
+                isLoading = false
                 Log.e("Map API", t.message.toString())
                 Toast.makeText(
                     requireActivity(),
